@@ -1,0 +1,67 @@
+.game__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    row-gap: rem(80);
+    padding: rem(10);
+    border-radius: var(--border-radius);
+    border: var(--border-big);
+    margin-block: auto;
+    width: 60%;
+    height: rem(320);
+
+    margin-block: rem(25);
+    background-color: var(--color-bg);
+
+    @include desktop-2k {
+        height: rem(500);
+        row-gap: rem(160);
+    }
+
+    @include mobile {
+        width: 80%;
+    }
+
+    @include mobile-sm {
+        width: 80%;
+    }
+
+    &-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: rem(10);
+    }
+
+    &-icons {
+        position: relative;
+        width: rem(50);
+        height: rem(50);
+    }
+
+    &-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+}
+
+.is-shown {
+    display: block;
+}
+
+.win-icon {
+    stroke: var(--color-green) !important;
+    fill: none !important;
+}
+
+.lose-icon {
+    stroke: var(--color-red) !important;
+    fill: var(--color-red) !important;
+}

@@ -1,0 +1,21 @@
+.article {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(10);
+    padding: rem(10);
+    border-radius: var(--border-radius);
+    border: var(--border-big);
+    min-height: 0;
+
+    @include tablet {
+        max-height: rem(600);
+    }
+
+    @include mobile {
+        max-height: rem(600);
+    }
+
+    @include mobile-sm {
+        max-height: rem(600);
+    }
+}

@@ -1,0 +1,21 @@
+@import
+    "./normalize",
+    "./fonts",
+    "./variables",
+    "./global",
+    "./media",
+    "./text-normalize",
+    "./rem-function";
+
+@import 
+    "./components/attempts-bar",
+    "./components/button",
+    "./components/field",
+    "./components/header",
+    "./components/section",
+    "./components/article",
+    "./components/title",
+    "./components/statistics",
+    "./components/game-cards",
+    "./components/game",
+    "./components/rules";

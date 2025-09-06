@@ -1,0 +1,61 @@
+.game {
+    background-color: var(--color-card-drop);
+
+    @include tablet {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+    }
+
+    @include mobile {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+    }
+
+    @include mobile-sm {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: rem(10);
+    }
+
+    &__form {
+        display: flex;
+        column-gap: rem(10);
+        width: 100%;
+        justify-content: center;
+
+        @include mobile {
+            flex-direction: column;
+            row-gap: rem(10);
+            align-items: center;
+        }
+
+        @include mobile-sm {
+            flex-direction: column;
+            row-gap: rem(10);
+            align-items: center;
+        }
+    }
+
+    &__button {
+        width: 80%;
+        margin-bottom: rem(10);
+        opacity: 0;
+        pointer-events: none;
+        transition-duration: 0;
+    }
+}
+
+.active {
+    opacity: 1;
+    pointer-events: auto;
+
+    &:focus {
+        background-color: var(--color-accent);
+    }
+}

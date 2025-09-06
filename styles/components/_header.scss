@@ -1,0 +1,88 @@
+.header {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: rem(20);
+    padding-top: rem(25);
+
+    &__title {
+        margin-inline: rem(240);
+        margin-right: rem(128);
+
+        @include tablet {
+            margin-inline: rem(160);
+            margin-right: rem(80);
+            column-gap: rem(10);
+        }
+
+        @include mobile {
+            margin-inline: rem(40);
+            margin-right: rem(10);
+            column-gap: rem(10);
+        }
+
+        @include mobile-sm {
+            margin-inline: rem(90);
+            margin-right: rem(0);
+            column-gap: rem(1);
+        }
+    }
+
+    &__button {
+        position: relative;
+        height: rem(50);
+        width: rem(48);
+        padding: rem(5);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        @include mobile-sm {
+            padding-right: rem(60);
+        }
+
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            width: 40px;
+            aspect-ratio: 1;
+            transition: transform 0.4s ease, opacity 0.4s ease, color var(--transition-duration) ease;
+        }
+
+        &:hover,
+        &:focus svg {
+            color: var(--color-accent);
+        }
+
+        &-light {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        &-dark {  
+            opacity: 0;
+            transform: rotate(-45deg);
+        }
+
+        body.dark-theme & {
+            color: var(--color-text);
+
+            &:hover svg {
+                color: var(--color-accent);
+            }
+
+            .header__button-light {
+                opacity: 0;
+                transform: rotate(45deg);
+            }
+
+            .header__button-dark {
+                opacity: 1;
+                transform: rotate(0deg);
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+.button {
+    height: var(--input-height);
+    width: rem(90);
+    padding: rem(5);
+
+    background-color: var(--color-bg);;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    transition-duration: 0s;
+
+    body.dark-theme & {
+        color: var(--color-text);
+    }
+
+    &:hover {
+        transition-duration: var(--transition-duration);
+        background-color: var(--color-accent);
+    }
+}

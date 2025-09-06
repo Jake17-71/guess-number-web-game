@@ -1,0 +1,40 @@
+.section {
+    --section-height: 80vh;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    column-gap: rem(25);
+
+    width: 95vw;
+    height: var(--section-height);
+    padding: rem(25);
+
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+
+    @include tablet {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 1fr 1fr;
+        gap: rem(15);
+        height: calc(var(--section-height) + var(--article-max-height));
+        padding: rem(15);
+    }
+
+    @include mobile {
+        --article-max-height: rem(600);
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 1fr 1fr;
+        gap: rem(15);
+        height: calc(var(--section-height) + var(--article-max-height));
+        padding: rem(15);
+    }
+
+    @include mobile-sm {
+        --article-max-height: rem(600);
+        grid-template-columns: 1fr;
+        grid-auto-rows: 1fr 1fr 1fr;
+        gap: rem(15);
+        height: calc(var(--section-height) + var(--article-max-height));
+        padding: rem(15);
+    }
+}

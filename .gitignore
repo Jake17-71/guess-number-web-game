@@ -1,0 +1,10 @@
+*.map
+наброски/
+*.png
+*.jpg
+*.jpeg
+*.psd
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

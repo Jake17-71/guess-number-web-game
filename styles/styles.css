@@ -1,0 +1,798 @@
+@charset "UTF-8";
+/*
+  убираем стрелочки у input type number
+*/
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/**
+  Нормализация блочной модели
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Упрощаем работу с изображениями
+ */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  height: 100%;
+  /**
+    Плавный скролл
+   */
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  min-height: 100%;
+  /**
+    Унифицированный интерлиньяж
+   */
+  line-height: 1.5;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+ */
+svg *[fill] {
+  fill: currentColor;
+}
+
+svg *[stroke] {
+  stroke: currentColor;
+}
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root {
+  --color-bg: #F5F5F5;
+  --color-card-bg: #F0F0F0;
+  --color-text: #222222;
+  --color-mid: #555555;
+  --color-card-drop: #ECECEC;
+  --color-mini-card-drop: #E1E1E1;
+  --color-accent: #4A90E2;
+  --color-red: #E53935;
+  --color-green: #4CAF50;
+  --border: 1px solid var(--color-mid);
+  --border-big: 2px solid var(--color-mid);
+  --border-radius: 8px;
+  --input-height: 40px;
+  --box-shadow:0px 0px 7px 5px rgba(0,0,0,0.15), 0 16px 32px -4px rgba(12, 12, 13, 0.1);
+  --transition-duration: 0.2s;
+}
+
+body.dark-theme {
+  --color-bg: #1E1E1E;
+  --color-card-bg: #2C2B2B;
+  --color-text: #F0F0F0;
+  --color-mid: #B3B3B3;
+  --color-card-drop: #2F2F2F;
+  --color-mini-card-drop: #262626;
+  --color-accent: #4A90E2;
+  --box-shadow:0px 0px 7px 5px rgba(155, 151, 151, 0.15), 0 16px 32px -4px rgba(38, 38, 41, 0.1);
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+input,
+label,
+button {
+  transition-duration: var(--transition-duration);
+}
+
+:focus-visible {
+  outline: 2px dashed var(--color-black);
+  outline-offset: 4px;
+  transition-duration: 0s !important;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.125rem, 2.0636363636rem + 0.2727272727vw, 2.5rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 1.7090909091rem + 0.1818181818vw, 2rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 1.4590909091rem + 0.1818181818vw, 1.75rem);
+}
+
+h4 {
+  font-size: clamp(1.25rem, 1.2090909091rem + 0.1818181818vw, 1.5rem);
+}
+
+h5 {
+  font-size: clamp(1rem, 0.9590909091rem + 0.1818181818vw, 1.25rem);
+}
+
+h6 {
+  font-size: clamp(1rem, 0.9590909091rem + 0.1818181818vw, 1.25rem);
+}
+
+body {
+  font-size: clamp(0.875rem, 0.8340909091rem + 0.1818181818vw, 1.125rem);
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    font-size: clamp(0.875rem, 0.8545454545rem + 0.0909090909vw, 1rem);
+  }
+}
+
+.game__attempts-bar {
+  width: 50%;
+  height: 0.9375rem;
+  border-radius: var(--border-radius);
+  background-color: var(--color-bg);
+  border: var(--border-big);
+}
+@media (max-width: 479px) {
+  .game__attempts-bar {
+    width: 80%;
+  }
+}
+
+.game__attempts-fill {
+  width: 100%;
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: var(--border-radius);
+}
+
+.button {
+  height: var(--input-height);
+  width: 5.625rem;
+  padding: 0.3125rem;
+  background-color: var(--color-bg);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  color: var(--color-text);
+  transition-duration: 0s;
+}
+body.dark-theme .button {
+  color: var(--color-text);
+}
+.button:hover {
+  transition-duration: var(--transition-duration);
+  background-color: var(--color-accent);
+}
+
+.field {
+  position: relative;
+  background-color: var(--color-bg);
+  border-radius: var(--border-radius);
+}
+.field:has(.field__input:not(:-moz-placeholder)) .field__label {
+  scale: 0.7;
+  translate: -1.75em -2.6em;
+  color: var(--color-mid);
+  transition-duration: var(--transition-duration);
+}
+.field:has(.field__input:not(:placeholder-shown)) .field__label {
+  scale: 0.7;
+  translate: -1.75em -2.6em;
+  color: var(--color-mid);
+  transition-duration: var(--transition-duration);
+}
+.field__label {
+  position: absolute;
+  top: 50%;
+  left: 1.0625rem;
+  color: var(--color-text);
+  translate: 0 -50%;
+  transition-duration: 0s;
+}
+.field__input {
+  height: var(--input-height);
+  width: 20rem;
+  padding-inline: 1rem;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--color-text);
+  transition-duration: var(--transition-duration);
+}
+@media (min-width: 1920px) {
+  .field__input {
+    width: 23.75rem;
+  }
+}
+@media (max-width: 479px) {
+  .field__input {
+    width: 17.5rem;
+  }
+}
+.field__input:hover, .field__input:focus {
+  border-color: var(--color-mid);
+  background-color: var(--color-accent);
+}
+.field__input:focus {
+  outline: none;
+  background-color: transparent;
+}
+.field__input.input-error {
+  border-color: var(--color-red);
+  color: var(--color-red);
+}
+.field__input.shake-animation {
+  animation: shake 0.3s;
+}
+.field__button {
+  transition-duration: 0s;
+  width: 6.25rem;
+}
+.field__button:hover, .field__button:focus {
+  transition-duration: var(--transition-duration);
+  border-color: var(--color-mid);
+  background-color: var(--color-accent);
+  color: var(--color-text);
+}
+.field__button:focus {
+  background-color: transparent;
+}
+.field__button.input-error {
+  border-color: var(--color-red);
+}
+.field__button.shake-animation {
+  animation: shake 0.3s;
+}
+
+.message-error {
+  color: var(--color-red);
+  margin-top: 0.3125rem;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-0.3125rem);
+  }
+  50% {
+    transform: translateX(0.3125rem);
+  }
+  75% {
+    transform: translateX(-0.3125rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.header {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -moz-column-gap: 1.25rem;
+       column-gap: 1.25rem;
+  padding-top: 1.5625rem;
+}
+.header__title {
+  margin-inline: 15rem;
+  margin-right: 8rem;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header__title {
+    margin-inline: 10rem;
+    margin-right: 5rem;
+    -moz-column-gap: 0.625rem;
+         column-gap: 0.625rem;
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .header__title {
+    margin-inline: 2.5rem;
+    margin-right: 0.625rem;
+    -moz-column-gap: 0.625rem;
+         column-gap: 0.625rem;
+  }
+}
+@media (max-width: 479px) {
+  .header__title {
+    margin-inline: 5.625rem;
+    margin-right: 0rem;
+    -moz-column-gap: 0.0625rem;
+         column-gap: 0.0625rem;
+  }
+}
+.header__button {
+  position: relative;
+  height: 3.125rem;
+  width: 3rem;
+  padding: 0.3125rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+@media (max-width: 479px) {
+  .header__button {
+    padding-right: 3.75rem;
+  }
+}
+.header__button svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 40px;
+  aspect-ratio: 1;
+  transition: transform 0.4s ease, opacity 0.4s ease, color var(--transition-duration) ease;
+}
+.header__button:hover, .header__button:focus svg {
+  color: var(--color-accent);
+}
+.header__button-light {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.header__button-dark {
+  opacity: 0;
+  transform: rotate(-45deg);
+}
+body.dark-theme .header__button {
+  color: var(--color-text);
+}
+body.dark-theme .header__button:hover svg {
+  color: var(--color-accent);
+}
+body.dark-theme .header__button .header__button-light {
+  opacity: 0;
+  transform: rotate(45deg);
+}
+body.dark-theme .header__button .header__button-dark {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.section {
+  --section-height: 80vh;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  -moz-column-gap: 1.5625rem;
+       column-gap: 1.5625rem;
+  width: 95vw;
+  height: var(--section-height);
+  padding: 1.5625rem;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .section {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr 1fr;
+    gap: 0.9375rem;
+    height: calc(var(--section-height) + var(--article-max-height));
+    padding: 0.9375rem;
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .section {
+    --article-max-height: rem(600);
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr 1fr;
+    gap: 0.9375rem;
+    height: calc(var(--section-height) + var(--article-max-height));
+    padding: 0.9375rem;
+  }
+}
+@media (max-width: 479px) {
+  .section {
+    --article-max-height: rem(600);
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr 1fr 1fr;
+    gap: 0.9375rem;
+    height: calc(var(--section-height) + var(--article-max-height));
+    padding: 0.9375rem;
+  }
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.625rem;
+  padding: 0.625rem;
+  border-radius: var(--border-radius);
+  border: var(--border-big);
+  min-height: 0;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .article {
+    max-height: 37.5rem;
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .article {
+    max-height: 37.5rem;
+  }
+}
+@media (max-width: 479px) {
+  .article {
+    max-height: 37.5rem;
+  }
+}
+
+.title {
+  text-decoration: underline;
+  text-align: center;
+}
+
+.statistics {
+  background-color: var(--color-card-drop);
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .statistics {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .statistics {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+@media (max-width: 479px) {
+  .statistics {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+.statistics__body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25rem;
+  height: 100%;
+  min-height: 0;
+}
+.statistics__empty-message {
+  align-self: center;
+  color: var(--color-mid);
+}
+
+.all-statistics {
+  display: flex;
+  justify-content: space-between;
+  -moz-column-gap: 0.3125rem;
+       column-gap: 0.3125rem;
+  padding: 0.625rem;
+  background-color: var(--color-mini-card-drop);
+  border-radius: var(--border-radius);
+  border: var(--border-big);
+}
+.all-statistics__button-reset {
+  width: 4.375rem;
+}
+.all-statistics__button-reset:focus {
+  background-color: var(--color-accent);
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .all-statistics__inner {
+    width: 60%;
+  }
+}
+
+.session-statistics {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  row-gap: 0.625rem;
+  min-height: 0;
+}
+.session-statistics__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  row-gap: 0.9375rem;
+  padding: 0.625rem;
+  border-radius: var(--border-radius);
+  border: var(--border-big);
+  background-color: var(--color-bg);
+}
+.session-statistics__list::-webkit-scrollbar {
+  scrollbar-width: none;
+}
+.session-statistics__item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3125rem;
+  padding: 0.625rem;
+  background-color: var(--color-mini-card-drop);
+  border-radius: var(--border-radius);
+  border: var(--border-big);
+}
+
+.win-color {
+  color: var(--color-green);
+}
+
+.lose-color {
+  color: var(--color-red);
+}
+
+.game__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  row-gap: 5rem;
+  padding: 0.625rem;
+  border-radius: var(--border-radius);
+  border: var(--border-big);
+  margin-block: auto;
+  width: 60%;
+  height: 20rem;
+  margin-block: 1.5625rem;
+  background-color: var(--color-bg);
+}
+@media (min-width: 1920px) {
+  .game__card {
+    height: 31.25rem;
+    row-gap: 10rem;
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .game__card {
+    width: 80%;
+  }
+}
+@media (max-width: 479px) {
+  .game__card {
+    width: 80%;
+  }
+}
+.game__card-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -moz-column-gap: 0.625rem;
+       column-gap: 0.625rem;
+}
+.game__card-icons {
+  position: relative;
+  width: 3.125rem;
+  height: 3.125rem;
+}
+.game__card-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.is-shown {
+  display: block;
+}
+
+.win-icon {
+  stroke: var(--color-green) !important;
+  fill: none !important;
+}
+
+.lose-icon {
+  stroke: var(--color-red) !important;
+  fill: var(--color-red) !important;
+}
+
+.game {
+  background-color: var(--color-card-drop);
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .game {
+    grid-column: 1/span 2;
+    grid-row: 1;
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .game {
+    grid-column: 1/span 2;
+    grid-row: 1;
+  }
+}
+@media (max-width: 479px) {
+  .game {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+.game__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.625rem;
+}
+.game__form {
+  display: flex;
+  -moz-column-gap: 0.625rem;
+       column-gap: 0.625rem;
+  width: 100%;
+  justify-content: center;
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .game__form {
+    flex-direction: column;
+    row-gap: 0.625rem;
+    align-items: center;
+  }
+}
+@media (max-width: 479px) {
+  .game__form {
+    flex-direction: column;
+    row-gap: 0.625rem;
+    align-items: center;
+  }
+}
+.game__button {
+  width: 80%;
+  margin-bottom: 0.625rem;
+  opacity: 0;
+  pointer-events: none;
+  transition-duration: 0;
+}
+
+.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.active:focus {
+  background-color: var(--color-accent);
+}
+
+.rules {
+  background-color: var(--color-card-drop);
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .rules {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .rules {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+@media (max-width: 479px) {
+  .rules {
+    grid-row: 3;
+    max-height: 31.25rem;
+  }
+}
+.rules__list {
+  padding-left: 1.25rem;
+}/*# sourceMappingURL=styles.css.map */

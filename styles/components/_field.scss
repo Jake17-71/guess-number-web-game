@@ -1,0 +1,98 @@
+.field {
+    position: relative;
+    background-color: var(--color-bg);
+    border-radius: var(--border-radius);
+
+    &:has(.field__input:not(:placeholder-shown)) .field__label {
+        scale: 0.7;
+        translate: -1.75em -2.6em;
+        color: var(--color-mid);
+        transition-duration: var(--transition-duration);
+    }
+
+    &__label {
+        position: absolute;
+        top: 50%;
+        left: rem(17);
+        color: var(--color-text);
+        translate: 0 -50%;
+        transition-duration: 0s;
+    }
+
+    &__input {
+        height: var(--input-height);
+        width: rem(320);
+        padding-inline: rem(16);
+        border: var(--border);
+        border-radius: var(--border-radius);
+        background-color: transparent;
+        color: var(--color-text);
+        transition-duration: var(--transition-duration);
+
+        @include desktop-2k {
+            width: rem(380);
+        }
+
+        @include mobile-sm {
+            width: rem(280);
+        }
+
+        &:hover,
+        &:focus {
+            border-color: var(--color-mid);
+            background-color: var(--color-accent);
+        }
+
+        &:focus {
+            outline: none;
+            background-color: transparent;
+        }
+
+        &.input-error {
+            border-color: var(--color-red);
+            color: var(--color-red);
+        }
+
+        &.shake-animation {
+            animation: shake 0.3s;
+        }
+    }
+
+    &__button {
+        transition-duration: 0s;
+        width: rem(100);
+
+        &:hover,
+        &:focus {
+            transition-duration: var(--transition-duration);
+            border-color: var(--color-mid);
+            background-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        &:focus {
+            background-color: transparent;
+        }
+
+        &.input-error {
+            border-color: var(--color-red);
+        }
+
+        &.shake-animation {
+            animation: shake 0.3s;
+        }
+    }
+}
+
+.message-error {
+    color: var(--color-red);
+    margin-top: rem(5);
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(rem(-5)); }
+    50% { transform: translateX(rem(5)); }
+    75% { transform: translateX(rem(-5)); }
+    100% { transform: translateX(0); }
+}

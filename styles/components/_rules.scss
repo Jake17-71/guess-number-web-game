@@ -1,0 +1,22 @@
+.rules {
+    background-color: var(--color-card-drop);
+
+    @include tablet {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    @include mobile {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    @include mobile-sm {
+        grid-row: 3;
+        max-height: rem(500);
+    }
+
+    &__list {
+        padding-left: rem(20);
+    }
+}
